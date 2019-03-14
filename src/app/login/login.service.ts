@@ -6,7 +6,7 @@ import {HttpClient, HttpParams, HttpHeaders} from '@angular/common/http';
   providedIn: 'root'
 })
 export class LoginService {
-  public serverurl:string="https://hashblog.herokuapp.com/";
+  public serverurl:string="https://hashappoint.herokuapp.com/";
   public data={
     user:null,
     token:null
@@ -17,7 +17,7 @@ export class LoginService {
   public after_verify:any=[];
 
   constructor(public http:HttpClient){
-     this.serverurl="http://localhost:8000/";
+    // this.serverurl="http://localhost:8000/";
     // check if user details present or not
       var token = localStorage.getItem('auth_token');
       //user = localStorage.getItem('auth_user');

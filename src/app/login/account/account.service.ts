@@ -18,7 +18,7 @@ export class AccountService {
     this.startApp = function () {
       window['gapi'].load('auth2', function () {
         window['auth2'] = window['gapi'].auth2.init({
-          client_id: '483532985823-5gjsj07p6ugrvmjvdti3dvqat995l9qs.apps.googleusercontent.com',
+          client_id: '373414904977-n4id010pcju9nb7e8hj992ceph90ag1l.apps.googleusercontent.com',
           cookiepolicy: 'single_host_origin',
         });
         window['auth2'].isSignedIn.listen((val)=>{self.signinChanged(val,self)});
