@@ -1,0 +1,31 @@
+<ng-container *ngIf="show=='icon'">
+  <div class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" style="padding:0;" href="javascript:void(0)" id="navbarDropdown" role="button"
+      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i *ngIf="!LS.islogged" class='fas fa-user'></i>
+      <img *ngIf="LS.islogged" class="account-image-small" src="{{LS.data.user.info.picture}}">
+    </a>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+      <a class="dropdown-item fab fa-google text-primary" href="javascript:void(0)" (click)="AC.login()"
+        *ngIf="!LS.islogged">
+        <div style="margin-left:5px;">Login </div>
+      </a>
+      <!--div class="dropdown-divider" *ngIf="LS.islogged"></div-->
+      <a class="dropdown-item fas fa-sign-out-alt text-danger" (click)="AC.logout()" *ngIf="LS.islogged"
+        href="javascript:void(0)">
+        <div style="margin-left:5px;">Logout</div>
+      </a>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="show=='dashboard'">
+  <div class="nav-link btn">
+    <i class="fab fa-google text-primary" href="javascript:void(0)" (click)="AC.login()" *ngIf="!LS.islogged">
+      <div style="margin-left:5px;">Login</div>
+    </i>
+    <i class="fas text-primary" href="javascript:void(0)" *ngIf="LS.islogged">
+      <div style="margin-right:5px;">{{LS.data.user.info.name}}</div>
+    </i>
+    <img *ngIf="LS.islogged" class="account-image-small" (click)="AC.logout();" src="{{LS.data.user.info.picture}}">
+  </div>
+</ng-container>
