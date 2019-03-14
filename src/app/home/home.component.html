@@ -1,1 +1,24 @@
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem iste, libero sunt aspernatur porro eveniet neque inventore! Maiores, quidem cupiditate illum aut fuga dolorem, minima sequi nihil quod eaque commodi?
+
+<ng-container *ngIf="!LS.islogged">
+    <h1>U must be logged in to continue</h1>
+</ng-container>
+<ng-container *ngIf="LS.islogged">
+    <div class="row card-body">
+        <div class="col-md-4">
+            <div class="card">
+                    <div class="card-header">
+                            Create new Appointment
+                        </div>
+                        
+                <div class="card-body">
+                    <div class="input-group">
+                                <input class="form-control" type="text" placeholder="Recipient's text" aria-label="Recipient's ">
+                                <div class="input-group-append">
+                                    <button class="btn btn-success">Create</button>
+                                </div>
+                            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
