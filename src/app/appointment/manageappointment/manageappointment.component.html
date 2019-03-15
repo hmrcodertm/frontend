@@ -1,0 +1,122 @@
+<ng-container *ngIf="!LS.islogged">
+  <div class="text-danger">Please login before continueing</div>
+</ng-container>
+<ng-container *ngIf="this.appointment!=null && LS.islogged">
+  <ng-container *ngIf="appointment.creator == LS.data.user.url"> 
+
+    <!-- The visiting user is an admin -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+              <div class="card">
+                <div class="card-header">
+                  <input class="form-control" [attr.value]="this.appointment.name" #upName>
+                </div>
+                <div class="card-body">
+                  <input type="datetime-local" class="form-control" [attr.value]="this.appointment.time_begin" #upt1>
+                  <input type="datetime-local" class="form-control" [attr.value]="this.appointment.time_end" #upt2>
+                </div>
+                <div class="card-footer">
+                  <button class="btn btn-success" type="button" (click)="update(upName.value, upt1.value, upt2.value)"><i class="fas fa-save"></i></button>
+                  <button class="btn btn-danger" type="button"><i class="fas fa-trash"></i></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="card">
+                <div class="card-body">
+                  <h6>{{now|date:'short'}}</h6>
+                  <div *ngIf="!started">
+                    <button class="btn btn-success" (click)="startAppointing()" type="button">Start Appointing</button>
+                  </div>
+                  <div class="card" *ngIf="started">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <img [attr.src]="currentAppointee?.user?.info.picture" alt="" class="card-image-top">
+                      </div>
+                      <div class="col-md-6">
+                        <span>Current Appointee Name : {{currentAppointee?.registered_details?.details}}</span><br>
+                        <span>Time Spent: {{time_count}} seconds</span>
+                      </div>
+                    </div>
+                    <div class="card-footer">
+                        <button (click)="appointeeComplete()" class="btn btn-success" type="button"><i class="fas fa-check"></i></button>
+                        <button *ngIf="started && !paused" (click)="paused=true" class="btn btn-primary" type="button"><i class="fas fa-pause"></i></button>
+                        <button  *ngIf="started && paused" (click)="paused=false" class="btn btn-primary" type="button"><i class="fas fa-play"></i></button>
+                        <button class="btn btn-danger" type="button"><i class="fas fa-times"></i></button>
+                      </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Number</th>
+                      <th>Name</th>
+                      <th>Appointment Time</th>
+                      <th>Status</th>
+                      <th>Time Spent</th>
+                    </tr>
+                  </thead>
+                    <tr *ngFor="let x of appointmentRegisterList">
+                      <td>{{x.line_index}}</td>
+                      <td>{{x.details}}</td>
+                      <td>{{x.approx_time|date:'short'}}</td>
+                      <td>
+                        <i *ngIf="x.status==0" class="fas fa-clock"></i>
+                        <i *ngIf="x.status==1" class="fas fa-pencil-alt"></i>
+                        <i *ngIf="x.status==2" class="fas fa-user-minus"></i>
+                        <i *ngIf="x.status==3" class="fas fa-check"></i>
+                      </td>
+                      <td>{{x.time_utilized}} seconds</td>
+                    </tr>
+                    </table>
+            </div>
+          </div>
+      
+    </div>
+    
+
+  </ng-container>
+  <ng-container *ngIf="appointment.creator != LS.data.user.url"> 
+  
+    <!-- The visiting user is not an admin -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+              <!--app-applyappointment [appointment]="appointment"></app-applyappointment-->
+              <div class="card">
+                  <div class="card-header">
+                    Apply to {{appointment.name}} with
+                  </div>
+                  <div class="card-body">
+                      <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">Name</span>
+                          </div>
+                          <input class="form-control" type="text" #appName placeholder="Your Name here" [attr.value]="LS.data.user.name">
+                          <div class="input-group-append">
+                            <button class="btn btn-success input-group-text" (click)="apply(appName.value)"><i class="fas fa-check"></i></button>
+                          </div>
+                        </div>
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <table class="table">
+                    <tr *ngFor="let x of appointmentRegisterList">
+                      <td>{{x.line_index}}</td>
+                      <td>{{x.details}}</td>
+                      <td>{{x.approx_time|date:'short'}}</td>
+                    </tr>
+                    </table>
+            </div>
+          </div>    
+    </div>
+  
+  
+  </ng-container>
+</ng-container>

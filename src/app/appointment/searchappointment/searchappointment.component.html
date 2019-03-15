@@ -1,0 +1,29 @@
+<div class="card">
+    <div class="card-header">
+            Search for Appointment
+        </div>
+        
+<div class="card-body">
+    <div class="input-group">
+                <input class="form-control" type="text" placeholder="Recipient's text" aria-label="Recipient's " #searchName>
+                <div class="input-group-append">
+                    <button class="btn btn-success" (click)="search(searchName.value)" ><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+</div>
+</div>
+<div class="card" *ngIf="searchList.length!=0">
+  <div class="card-header">
+    For your query {{ searchName.value }}, we found these results:
+  </div>
+  <div class="card-body">
+    <table class="table">
+    <tr *ngFor="let x of searchList">
+      <td>{{x.name}}</td>
+      <td *ngIf="x.creator==LS.data.user.url"> <a routerLink="/appointment/{{x.pk}}"> Manage</a></td>
+      <td *ngIf="x.creator!=LS.data.user.url"> <a routerLink="/appointment/{{x.pk}}"> Register</a></td>
+      
+    </tr>
+    </table>
+  </div>
+</div>
